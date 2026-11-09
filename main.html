@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow - Gestor de Tareas</title>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Estilos Personalizados  -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Encabezado Principal -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-check-double"></i>
+        </div>
+        <div>
+          <h1 class="brand-title">TaskFlow</h1>
+          <p class="brand-subtitle">Gestor de Tareas & Proyectos DAW</p>
+        </div>
+      </div>
+
+      <!-- Barra de Búsqueda -->
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Buscar tarea...">
+      </div>
+    </div>
+  </header>
+
+  <main class="main-container">
+
+    <!-- Columna Izquierda: Estadísticas y Formulario -->
+    <aside class="sidebar">
+      
+      <!-- Panel de Estadísticas -->
+      <section class="card stats-card">
+        <h2 class="section-title">Progreso General</h2>
+        
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-value" id="statTotal">0</span>
+            <span class="stat-label">Totales</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-value pending" id="statPending">0</span>
+            <span class="stat-label">Pendientes</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-value completed" id="statCompleted">0</span>
+            <span class="stat-label">Listas</span>
+          </div>
+        </div>
+
+        <!-- Barra de Progreso -->
+        <div class="progress-wrapper">
+          <div class="progress-info">
+            <span>Completado</span>
+            <span id="statPercent">0%</span>
+          </div>
+          <div class="progress-track">
+            <div id="progressBar" class="progress-fill"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Formulario de Nueva Tarea -->
+      <section class="card form-card">
+        <h2 class="section-title">Nueva Tarea</h2>
+        <form id="taskForm">
+          
+          <div class="form-group">
+            <label for="taskTitle">Título</label>
+            <input type="text" id="taskTitle" required placeholder="Ej: Diseñar maqueta HTML/CSS">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="taskCategory">Categoría</label>
+              <select id="taskCategory">
+                <option value="DAW">DAW / Código</option>
+                <option value="IT">Soporte IT</option>
+                <option value="Administración">Administración</option>
+                <option value="Personal">Personal</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="taskPriority">Prioridad</label>
+              <select id="taskPriority">
+                <option value="Baja">Baja</option>
+                <option value="Media" selected>Media</option>
+                <option value="Alta">Alta</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="taskDueDate">Fecha Límite</label>
+            <input type="date" id="taskDueDate">
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i>
+            <span>Añadir Tarea</span>
+          </button>
+        </form>
+      </section>
+
+    </aside>
+
+    <!-- Columna Derecha: Filtros y Lista de Tareas -->
+    <section class="content-area">
+      
+      <!-- Barra de Filtros -->
+      <div class="card filter-bar">
+        <div class="filter-tabs" id="filterTabs">
+          <button data-filter="all" class="filter-tab active-tab">Todas</button>
+          <button data-filter="pending" class="filter-tab">Pendientes</button>
+          <button data-filter="completed" class="filter-tab">Completadas</button>
+        </div>
+
+        <button id="clearCompletedBtn" class="btn-text-danger">
+          <i class="fa-regular fa-trash-can"></i> Limpiar completadas
+        </button>
+      </div>
+
+      <!-- Listado de Tareas -->
+      <div id="taskList" class="task-list">
+        <!-- Generado dinámicamente -->
+      </div>
+
+      <!-- Estado Vacío -->
+      <div id="emptyState" class="empty-state hidden">
+        <div class="empty-icon">
+          <i class="fa-regular fa-folder-open"></i>
+        </div>
+        <h3>No hay tareas que mostrar</h3>
+        <p>Añade una nueva tarea o cambia los filtros activos.</p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Notificación Toast -->
+  <div id="toast" class="toast">
+    <i id="toastIcon" class="fa-solid fa-circle-check"></i>
+    <span id="toastMsg">Notificación</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
